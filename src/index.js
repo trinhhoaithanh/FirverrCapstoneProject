@@ -5,7 +5,9 @@ import {Routes, unstable_HistoryRouter as HistoryRouter, Route, Navigate} from '
 import { createBrowserHistory } from 'history';
 import {store} from './redux/configureStore'
 import HomeTemplate from './Templates/HomeTemplate/HomeTemplate';
-
+import DefaultTemplate from './Templates/AdminTemplate/DefaultTemplate';
+// import QuanLyNguoiDung from './Pages/Admin/quanLy/NguoiDung'
+import router from './router';
 export const history = createBrowserHistory()
 
 
@@ -16,6 +18,10 @@ root.render(
         <Routes >
             <Route path='' element={<HomeTemplate />}>
                 <Route path='*' element={<Navigate to='/'/>}></Route>
+            </Route>
+            <Route path='admin' element={<DefaultTemplate/>}>
+                {router.admin.map(route => <Route path={route.path} element={route.element} key={route.key}></Route>)}
+
             </Route>
         </Routes>
     </HistoryRouter>
