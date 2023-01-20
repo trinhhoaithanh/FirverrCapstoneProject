@@ -1,9 +1,16 @@
 import React from 'react'
-import {Input , Button, Space, Table} from 'antd'
+import {Input , Button, Space, Table, Form} from 'antd'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import {callApi} from '../../../utils/config'
+import NguoiDungModal from '../modal/NguoiDungModal';
+import { AxiosError } from 'axios';
 
+export const formType = {
+    EDIT: 'edit',
+    DETAIL: 'detail',
+    ADD: 'add'
+}
 export default function NguoiDung() {
     // const dataSource = [
     //     {
@@ -88,11 +95,19 @@ export default function NguoiDung() {
     const [keySearch, setKeySearch] = useState('')
     const [pageSize, setPageSize] = useState(10)
     const [current, setCurrent] = useState(1)
+    const [isModalOpen, setIsModalopen] = useState(false)
+    const [modeForm, setModeForm] = useState(formType.EDIT);
+    const [form] = Form.useForm();
     const columns = [
     {
         title: 'id',
         dataIndex: 'id',
         key: 'id',
+    },
+    {
+        title: 'name',
+        dataIndex: 'name',
+        key: 'name',
     },
     {
         title: 'role',
@@ -115,8 +130,8 @@ export default function NguoiDung() {
         render: (_, record) =>{
             return (
                 <Space wrap>
-                    <Button type="primary">xem thông tin chi tiết</Button>
-                    <Button type="dashed">sửa</Button>
+                    <Button type="primary" onClick={() => handleClickDetail(record.id)}>xem thông tin chi tiết</Button>
+                    <Button type="dashed" onClick={() => handlleClickEdit(record.id)}>sửa</Button>
                     <Button type="dashed" danger onClick={() =>{
                         // console.log(record.id)
                         deleteUser(record.id)
@@ -153,8 +168,30 @@ export default function NguoiDung() {
     }
     const deleteApi = async(id)=>{
         await callApi('delete', '/api/users', {
-            id
+            // id
         })
+    }
+    const addApi = async() =>{
+        try {
+            const result = await callApi('post', '/api/users',null,form.getFieldValue())
+        } catch (error) {
+            if(error instanceof AxiosError)
+                alert(error.response.data.content);
+        }
+    }
+    const detailApi = async(id) =>{
+        const result = await callApi('get', `/api/users/${id}`)
+        
+        form.setFieldsValue(result.data.content)
+
+    }
+    const editApi = async(id) =>{
+        try {
+            const result = await callApi('put', `/api/users/${id}`,null,form.getFieldValue())
+        } catch (error) {
+            if(error instanceof AxiosError)
+                console.log(error);
+        }
     }
 
     const configPagination = ({current,pageSize, totalPage})=>{
@@ -182,9 +219,44 @@ export default function NguoiDung() {
         searchApi(current, pageSize, keySearch)
     }
 
+    const handleClickAdd = () => {
+        setModeForm(formType.ADD)
+        openModal()
+    }
+
+    const handleClickDetail = (id) => {
+        setModeForm(formType.DETAIL)
+        detailApi(id)
+        openModal()
+    }
+
+    const handlleClickEdit = (id) => {
+        setModeForm(formType.EDIT)
+        detailApi(id)
+        openModal()
+    }
+
+    const openModal = () =>{
+        setIsModalopen(true)
+    }
+
+    const handleOk = async () => {
+        if(modeForm===formType.ADD){
+            addApi()
+        }
+        if(modeForm===formType.EDIT){
+            await editApi(form.getFieldValue().id)
+            searchApi(current,pageSize,keySearch)
+        }
+        setIsModalopen(false)
+
+
+    }
     return (
         <div>
-            <a>Thêm quản trị viên</a> <br /><br />
+            <br />
+            <Button type="primary" onClick={handleClickAdd}>Thêm quản trị viên</Button>
+            <br /> <br />
             <Space wrap>
                 <Input.Search 
                     placeholder='nhập vào tài khoản họ tên người dùng' 
@@ -201,6 +273,13 @@ export default function NguoiDung() {
                 pagination={pagination}
                 scroll={{ y: 400 }}
             />;
+            <NguoiDungModal 
+                isModalOpen={isModalOpen} 
+                onOk={handleOk} 
+                onCancel={() => setIsModalopen(false)}
+                form={form}
+                modeForm={modeForm}
+            />
         </div>
     )
 }
