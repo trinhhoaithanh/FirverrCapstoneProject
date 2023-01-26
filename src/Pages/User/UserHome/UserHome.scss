@@ -1,0 +1,83 @@
+*{
+    // font-family: ;
+    font-size: 16px;
+    color: white;
+}
+.user-home{
+    background-image: url(../../../assets/img/banner-1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 800px;
+
+    .carousel{
+       padding-top: 200px;
+       
+        h1{}
+        .navbar{
+            
+            .container-fluid{
+                form{
+                    width: 500px;
+                    height: 50px;
+                    input{
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+
+                    }
+                    .search-bar{
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                    }
+                }
+            }
+        }
+        .job-name{
+            h6{}
+        }    
+    }
+    .brand{
+        background-color: #e7e4e4;
+       .row{
+        .col-2{
+            
+            span{
+                margin-top: 60px;
+                font-size: 20px;
+            }
+        }
+       } 
+    }
+    .service{
+        position: absolute;
+        bottom: 0;
+        h3{
+
+        }
+    }
+    .selling{
+        background-color:#f1fdf7;
+        color: black;
+        .row{
+            .col-6{
+                h2{
+                    ul{
+                        li{
+                           
+                            h6{
+                               color: black;
+                                span{
+                                    svg{
+                                        
+                                    }
+                                }
+                            }
+                            p{
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
