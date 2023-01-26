@@ -1,10 +1,12 @@
 import React from 'react'
-import {Input , Button, Space, Table, Form} from 'antd'
+import { Input, Button, Space, Table, Form } from 'antd'
 import { useState } from 'react';
 import { useEffect } from 'react';
-import {callApi} from '../../../utils/config'
+import { callApi } from '../../../utils/config'
 import NguoiDungModal from '../modal/NguoiDungModal';
 import { AxiosError } from 'axios';
+import Loading from '../../../components/loading/Loading';
+import { notification } from 'antd'
 
 export const formType = {
     EDIT: 'edit',
@@ -12,6 +14,21 @@ export const formType = {
     ADD: 'add'
 }
 export default function NguoiDung() {
+    const typeNotification = {
+        SUCCESS: 'success',
+        INFO: 'info',
+        WARNING: 'warning',
+        ERROR: 'error'
+    }
+    const [api, contextHolder] = notification.useNotification()
+    const openNotification = (type, message, description) => {
+        api[type]({
+            message: message,
+            description: description,
+            className: 'custom-class',
+        });
+    };
+
     // const dataSource = [
     //     {
     //       "id": 1591,
@@ -90,7 +107,7 @@ export default function NguoiDung() {
     //       "bookingJob": []
     //     }
     //   ];
-    
+    const [loading, setLoading] = useState(false)
     const [dataSource, setDataSource] = useState([])
     const [keySearch, setKeySearch] = useState('')
     const [pageSize, setPageSize] = useState(10)
@@ -99,102 +116,129 @@ export default function NguoiDung() {
     const [modeForm, setModeForm] = useState(formType.EDIT);
     const [form] = Form.useForm();
     const columns = [
-    {
-        title: 'id',
-        dataIndex: 'id',
-        key: 'id',
-    },
-    {
-        title: 'name',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: 'role',
-        dataIndex: 'role',
-        key: 'role',
-    },
-    {
-        title: 'phone',
-        dataIndex: 'phone',
-        key: 'phone',
-    },
-    {
-        title: 'email',
-        dataIndex: 'email',
-        key: 'email',
-    },
-    {
-        title: '',
-        dataIndex: '',
-        render: (_, record) =>{
-            return (
-                <Space wrap>
-                    <Button type="primary" onClick={() => handleClickDetail(record.id)}>xem thông tin chi tiết</Button>
-                    <Button type="dashed" onClick={() => handlleClickEdit(record.id)}>sửa</Button>
-                    <Button type="dashed" danger onClick={() =>{
-                        // console.log(record.id)
-                        deleteUser(record.id)
-                    }}>X</Button>
-                </Space>
-            )
+        {
+            title: 'id',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'role',
+            dataIndex: 'role',
+            key: 'role',
+        },
+        {
+            title: 'phone',
+            dataIndex: 'phone',
+            key: 'phone',
+        },
+        {
+            title: 'email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: '',
+            dataIndex: '',
+            render: (_, record) => {
+                return (
+                    <Space wrap>
+                        <Button type="primary" onClick={() => handleClickDetail(record.id)}>xem thông tin chi tiết</Button>
+                        <Button type="dashed" onClick={() => handlleClickEdit(record.id)}>sửa</Button>
+                        <Button type="dashed" danger onClick={() => {
+                            // console.log(record.id)
+                            deleteUser(record.id)
+                        }}>X</Button>
+                    </Space>
+                )
+            }
         }
-    }
     ];
 
-    useEffect(()=>{
+    useEffect(() => {
+        // eslint-disable-next-line
         searchApi(current, pageSize, keySearch)
-    },[current, pageSize, keySearch])
+    }, [current, pageSize, keySearch])
 
     const [pagination, setPagination] = useState({})
 
-    const searchApi = async(pageIndex,pageSize,keyword) =>{
+    const searchApi = async (pageIndex, pageSize, keyword) => {
         // const result = await http.get(`/api/users/phan-trang-tim-kiem?pageIndex=${pageIndex}&pageSize=${pageSize}&keyword=${ketword}`)
-        configPagination({pageIndex, pageSize})
-        const data = await callApi('get', '/api/users/phan-trang-tim-kiem', {
-            pageIndex,
-            pageSize,
-            keyword
-        })
-        configPagination({
-            totalPage: data.data.content.totalRow
-        })
-        setDataSource(data.data.content.data.map(item => {
-            return {
-                ...item,
-                key: item.id
-            }
-        }))
-    }
-    const deleteApi = async(id)=>{
-        await callApi('delete', '/api/users', {
-            // id
-        })
-    }
-    const addApi = async() =>{
         try {
-            const result = await callApi('post', '/api/users',null,form.getFieldValue())
+            configPagination({ pageIndex, pageSize })
+            setLoading(true)
+            const data = await callApi('get', '/api/users/phan-trang-tim-kiem', {
+                pageIndex,
+                pageSize,
+                keyword
+            })
+            setLoading(false)
+            configPagination({
+                totalPage: data.data.content.totalRow
+            })
+            setDataSource(data.data.content.data.map(item => {
+                return {
+                    ...item,
+                    key: item.id
+                }
+            }))
         } catch (error) {
-            if(error instanceof AxiosError)
-                alert(error.response.data.content);
+            setLoading(false)
         }
     }
-    const detailApi = async(id) =>{
-        const result = await callApi('get', `/api/users/${id}`)
-        
-        form.setFieldsValue(result.data.content)
-
-    }
-    const editApi = async(id) =>{
+    const deleteApi = async (id) => {
         try {
-            const result = await callApi('put', `/api/users/${id}`,null,form.getFieldValue())
+            setLoading(true)
+            await callApi('delete', '/api/users', {
+                // id
+            })
+            setLoading(false)
+            openNotification(typeNotification.SUCCESS, 'xóa thành công', 'xóa thành công')
         } catch (error) {
-            if(error instanceof AxiosError)
-                console.log(error);
+            setLoading(false)
+            openNotification(typeNotification.ERROR, 'xóa thất bại', 'xóa thất bại')
+        }
+    }
+    const addApi = async () => {
+        try {
+            setLoading(true)
+            await callApi('post', '/api/users', null, form.getFieldValue())
+            setLoading(false)
+            openNotification(typeNotification.SUCCESS, 'thêm thành công', 'thêm thành công')
+        } catch (error) {
+            setLoading(false)
+            if (error instanceof AxiosError)
+                openNotification(typeNotification.ERROR, error.response.data.content, error.response.data.content)
+        }
+    }
+    const detailApi = async (id) => {
+        try {
+            setLoading(true)
+            const result = await callApi('get', `/api/users/${id}`)
+            setLoading(false)
+            form.setFieldsValue(result.data.content)
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+    const editApi = async (id) => {
+        try {
+            setLoading(true)
+            await callApi('put', `/api/users/${id}`, null, form.getFieldValue())
+            setLoading(false)
+            openNotification(typeNotification.SUCCESS,'sửa thông tin thành công', 'sửa thông tin thành công')
+        } catch (error) {
+            setLoading(false)
+            if (error instanceof AxiosError)
+                openNotification(typeNotification.ERROR, 'sửa thông tin thất bại', 'sửa thông tin thất bại')
         }
     }
 
-    const configPagination = ({current,pageSize, totalPage})=>{
+    const configPagination = ({ current, pageSize, totalPage }) => {
         setPagination({
             current: current,
             total: totalPage,
@@ -203,7 +247,7 @@ export default function NguoiDung() {
                 setCurrent(page)
                 setPageSize(pageSize)
             },
-            pageSizeOptions: ['5', '10' , '15'],
+            pageSizeOptions: ['5', '10', '15'],
             responsive: true
         })
     }
@@ -213,7 +257,7 @@ export default function NguoiDung() {
         setCurrent(1)
     }
 
-    const deleteUser = async(id) => {
+    const deleteUser = async (id) => {
         // console.log(id);
         await deleteApi(id)
         searchApi(current, pageSize, keySearch)
@@ -236,46 +280,50 @@ export default function NguoiDung() {
         openModal()
     }
 
-    const openModal = () =>{
+    const openModal = () => {
         setIsModalopen(true)
     }
 
     const handleOk = async () => {
-        if(modeForm===formType.ADD){
+        if (modeForm === formType.ADD) {
             addApi()
         }
-        if(modeForm===formType.EDIT){
+        if (modeForm === formType.EDIT) {
             await editApi(form.getFieldValue().id)
-            searchApi(current,pageSize,keySearch)
+            searchApi(current, pageSize, keySearch)
         }
         setIsModalopen(false)
 
 
     }
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
+
+            <Loading visible={loading} />
+            {contextHolder}
+
             <br />
             <Button type="primary" onClick={handleClickAdd}>Thêm quản trị viên</Button>
             <br /> <br />
             <Space wrap>
-                <Input.Search 
-                    placeholder='nhập vào tài khoản họ tên người dùng' 
-                    maxLength={100} 
-                    style={{width:'500px'}}
+                <Input.Search
+                    placeholder='nhập vào tài khoản họ tên người dùng'
+                    maxLength={100}
+                    style={{ width: '500px' }}
                     onSearch={handleSearch}
                 />
                 {/* <Button type="primary">tìm</Button> */}
 
             </Space> <br /><br />
-            <Table 
-                dataSource={dataSource} 
-                columns={columns} 
+            <Table
+                dataSource={dataSource}
+                columns={columns}
                 pagination={pagination}
                 scroll={{ y: 400 }}
             />;
-            <NguoiDungModal 
-                isModalOpen={isModalOpen} 
-                onOk={handleOk} 
+            <NguoiDungModal
+                isModalOpen={isModalOpen}
+                onOk={handleOk}
                 onCancel={() => setIsModalopen(false)}
                 form={form}
                 modeForm={modeForm}
