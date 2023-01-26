@@ -10,6 +10,9 @@ import UserLogin from './Pages/User/UserLogin/UserLogin';
 import "./assets/scss/style.scss";
 import UserRegister from './Pages/User/UserRegister/UserRegister';
 import UserProfile from './Pages/User/UserProfile/UserProfile';
+import DefaultTemplate from './Templates/AdminTemplate/DefaultTemplate';
+// import QuanLyNguoiDung from './Pages/Admin/quanLy/NguoiDung'
+import router from './router';
 export const history = createBrowserHistory()
 
 
@@ -24,6 +27,10 @@ root.render(
                 <Route path='loginUser' element={<UserLogin/>}></Route>
                 <Route path='profileUser' element={<UserProfile/>}></Route>
                 <Route path='*' element={<Navigate to='/'/>}></Route>
+            </Route>
+            <Route path='admin' element={<DefaultTemplate/>}>
+                {router.admin.map(route => <Route path={route.path} element={route.element} key={route.key}></Route>)}
+
             </Route>
         </Routes>
     </HistoryRouter>
