@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 import { history } from '../index';
 import { isExpired, decodeToken } from "react-jwt";
@@ -62,6 +63,7 @@ export const http = axios.create({
     timeout:30000
 })
 
+
 http.interceptors.request.use((config) => {
     config.headers = {
         ...config.headers,
@@ -99,10 +101,6 @@ http.interceptors.response.use((res)=>{
       }
       return Promise.reject(err);
 })
-
-
-
-
 
 
 /* Các status code thường gặp
