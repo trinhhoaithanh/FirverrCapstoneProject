@@ -1,0 +1,21 @@
+.header-home{
+    background-color: red;
+    .navbar{
+        .row{
+            .col-4{
+                color: red;
+            }
+            .col-8{
+                .collapse{
+                   .navbar-nav{
+                    .nav-item{
+                        .nav-link{
+                         color: black;
+                        }
+                    }
+                   } 
+                }
+            }
+        }
+    }
+}

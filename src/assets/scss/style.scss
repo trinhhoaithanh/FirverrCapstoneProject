@@ -1,3 +1,4 @@
+
 .btn-delete{
 
 }
@@ -14,3 +15,8 @@
     z-index: 2;
     cursor: pointer;
   }
+
+@import "../../Pages/User/UserHome/UserHome.scss";
+@import "../../Components/HeaderHome/HeaderHome.scss";
+@import "../../Components/Footer/Footer.scss";
+

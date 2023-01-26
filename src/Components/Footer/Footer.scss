@@ -1,0 +1,65 @@
+.footer{
+    .footer-top{
+        .row{
+            .col-2{
+                h6{
+                    color: #404145;
+                    font-weight: 700;
+                    font-size: 20px;
+                }
+                ul{
+                    list-style: none;
+                    margin-left: -36px;
+                    li{
+                        color: #74767e;
+                        font-size: 20px;
+                        line-height: 40px;
+                    }
+                }
+            }
+        }
+    }
+    .footer-bottom{
+        .row{
+            .col-5{
+                .row{
+                    .col-4{
+                        .fiverr-logo-footer{
+
+                        }
+                    }
+                    .col-8{
+                        .legal{
+                            color: #b5b6ba;
+                        }
+                    }
+                }
+            }
+            .col-7{
+                .row{
+                    .col-6{
+                        .row{
+                            .col-2{
+                                svg{
+                                    color: #74767e;
+                                }
+                            }
+                            .row{
+                                .col-4{
+                                    span{}
+                                    svg{}
+                                    .row{
+                                        .col-6{
+                                            svg{}
+                                            span{}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
