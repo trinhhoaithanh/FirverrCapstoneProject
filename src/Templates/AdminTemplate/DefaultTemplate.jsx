@@ -18,7 +18,7 @@ function DefaultTemplate() {
     const items = router.admin.map(route => getItem(route.title, route.key))
 
     const handleClickMenu = (item) => {
-        history.push(item.key)
+        history.push('/admin/'+item.key)
     }
     return (
         <div >

@@ -27,9 +27,10 @@ export const loginApi = (userLogin)=>{
     return async dispatch =>{
         const result = await http.post('/api/auth/signin',userLogin);
         const action =loginAction(result.data.content);
+        console.log(result);
         dispatch(action);
         saveStoreJson(USER_LOGIN,result.data.content)
-        saveStore(ACCESS_TOKEN,result.data.content.accessToken)
+        saveStore(ACCESS_TOKEN,result.data.content.token)
 
          history.push('/profileUser');
     }

@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { history } from '../index';
-import { isExpired, decodeToken } from "react-jwt";
+import { isExpired } from "react-jwt";
 // import { notification } from 'antd'
 
 export const ACCESS_TOKEN = 'accessToken';
@@ -84,8 +84,8 @@ export const http = axios.create({
 http.interceptors.request.use((config) => {
     config.headers = {
         ...config.headers,
-        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
-        TokenCybersoft: TOKEN_CYBERSOFT
+        token: `${getStore(ACCESS_TOKEN)}`,
+        tokenCybersoft: TOKEN_CYBERSOFT
     };
     return config;
 }, (err) => {
@@ -102,17 +102,17 @@ http.interceptors.response.use((res) => {
 
     if (err.response?.status === 400 || err.response?.status === 404) {
         //Lỗi do tham số => backend trả về 400 hoặc 404 mình sẽ xử lý
-        // alert('Tài khoản đã được đăng ký');
+        alert('Tài khoản đã được đăng ký');
         //chuyển hướng về home
         // history.push('/');
     }
-    if (err.response?.status === 401 || err.response?.status === 403) {
+    if (err.response?.status === 401) {
         const isMyTokenExpired = isExpired(getStore(ACCESS_TOKEN));
         if (isMyTokenExpired) {
             alert("Hết phiên đăng nhập yêu cầu đăng nhập lại !");
-            removeStore(ACCESS_TOKEN);
-            removeStore(USER_LOGIN);
-            window.location.href = "/login";
+            // removeStore(ACCESS_TOKEN);
+            // removeStore(USER_LOGIN);
+            // window.location.href = "/login";
         }
         history.push("/login");
     }
