@@ -31,8 +31,10 @@ export const loginApi = (userLogin)=>{
         dispatch(action);
         saveStoreJson(USER_LOGIN,result.data.content)
         saveStore(ACCESS_TOKEN,result.data.content.token)
-
-         history.push('/profileUser');
+        const role = result.data.content.user.role
+        if(role === 'ADMIN')
+            history.push('/admin/nguoi_dung')
+        else history.push('/profileUser');
     }
 }
 export const registerApi = (userRegister)=>{
