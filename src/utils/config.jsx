@@ -1,86 +1,106 @@
-import axios from "axios";
-import { history } from "../index";
-import {isExpired} from "react-jwt";
+
+import axios from 'axios';
+import { history } from '../index';
+import { isExpired, decodeToken } from "react-jwt";
 
 export const ACCESS_TOKEN = 'accessToken';
 export const USER_LOGIN = 'userLogin';
-// export const USER_PROFILE = "userProfile";
-export const USER_REGISTER  = 'userRegister';
-export const {saveStore,saveStoreJson,getStore,getStoreJson,removeStore}={
-    saveStore:(name,stringValue)=>{
-        localStorage.setItem(name,stringValue);
+export const USER_PROFILE = "userProfile";
+export const USER_REGISTER  = "userRegister";
+export const USER_UPDATE  = "userUpdate";
+
+export const { saveStore,saveStoreJson,getStore,getStoreJson,removeStore} = {
+    saveStore: (name, stringValue) => {
+        localStorage.setItem(name, stringValue);
         return stringValue;
-    },
-    saveStoreJson:(name,value)=>{
-        let sValue = JSON.stringify(value);
-        localStorage.setItem(name,sValue);
-        return value;//object
-    },
-    getStore:(name)=>{
-        if(localStorage.getItem(name)){
-            return localStorage.getItem(name);
+      },
+      saveStoreJson: (name, object) => {
+        let stringObject = JSON.stringify(object);
+        localStorage.setItem(name, stringObject);
+        return stringObject;
+      },
+      getStore: (name) => {
+        if (localStorage.getItem(name)) {
+          return localStorage.getItem(name);
         }
         return null;
-    },
-    getStoreJson:(name)=>{
-        if(localStorage.getItem(name)){
-            return JSON.parse(localStorage.getItem(name));
+      },
+      getStoreJson: (name) => {
+        if (localStorage.getItem(name)) {
+          return JSON.parse(localStorage.getItem(name));
         }
         return null;
-    },
-    removeStore:(name)=>{
-        if(localStorage.getItem(name)){
-            localStorage.removeItem(name);
+      },
+      removeStore: (name) => {
+        if (localStorage.getItem(name)) {
+          return localStorage.removeItem(name);
         }
-    }
+      },
 }
-const TOKEN_CYBERSOFT='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJGcm9udGVuZCA3MyIsIkhldEhhblN0cmluZyI6IjE5LzA1LzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY4NDQ1NDQwMDAwMCIsIm5iZiI6MTY1OTg5MTYwMCwiZXhwIjoxNjg0NjAyMDAwfQ.49m9-EoDr6zr7UOk_79hfcvJWKI_s0Wy_g40ossfl9c'
-//cấu hình cho tát cả các request api
+
+const TOKEN_CYBERSOFT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJGcm9udGVuZCA3MyIsIkhldEhhblN0cmluZyI6IjE5LzA1LzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY4NDQ1NDQwMDAwMCIsIm5iZiI6MTY1OTg5MTYwMCwiZXhwIjoxNjg0NjAyMDAwfQ.49m9-EoDr6zr7UOk_79hfcvJWKI_s0Wy_g40ossfl9c'
+
+//Cấu hình cho tất các request api
+export const callApi = (method, endPoint, params, data) =>{
+    let newParam = ''
+    if(params){
+        for (const [key, value] of Object.entries(params)) {
+            newParam = newParam + key + '=' + value + '&'
+        }
+        newParam = newParam.substring(0, newParam.length - 1);
+    }else {
+        params = {}
+    }
+    return http({
+        method,
+        baseURL: 'https://fiverrnew.cybersoft.edu.vn' + endPoint + `${Object.keys(params).length>0 ? '?' + newParam : ''}`,
+        data
+    })
+}
 
 export const http = axios.create({
     baseURL:'https://fiverrnew.cybersoft.edu.vn',
     timeout:30000
 })
-//có thể request nhiều nơi 
-http.interceptors.request.use((config)=>{
-    config.headers={
+
+
+http.interceptors.request.use((config) => {
+    config.headers = {
         ...config.headers,
-        Authorization:`Bearer ${getStore(ACCESS_TOKEN)}`,
-        TokenCybersoft:TOKEN_CYBERSOFT
-    }; 
+        Authorization: `Bearer ${getStore(ACCESS_TOKEN)}`,
+        TokenCybersoft: TOKEN_CYBERSOFT
+    };
     return config;
-
-},(err)=>{
+}, (err) => {
     return Promise.reject(err);
 })
-//cấu hình cho tất cả các respone api
 
+
+//Cấu hình cho tất cả các response api
 http.interceptors.response.use((res)=>{
-    
     return res;
-},(err)=>{
-    // Bắt lỗi 400 hoặc 404
-    if(err.response?.status===400||err.response?.status===404){
-        //lỗi do tham số =>backend trả về 400 hoặc 404 mình sẽ xử lý 
-        alert('tham số truyền không hợp lệ')
-        //chuyển hướng về home 
-        history.push('/')
+}, (err) => {
+    
+    //Bắt lỗi 400 hoặc 404
+    
+    if(err.response?.status === 400 || err.response?.status === 404) {
+        //Lỗi do tham số => backend trả về 400 hoặc 404 mình sẽ xử lý
+        // alert('Tài khoản đã được đăng ký');
+        //chuyển hướng về home
+        // history.push('/');
     }
-    if(err.response.status===401||err.response.status===403){
+    if (err.response?.status === 401 || err.response?.status === 403) {
         const isMyTokenExpired = isExpired(getStore(ACCESS_TOKEN));
-        if(isMyTokenExpired){
-            alert("hết phiên đăng nhập yêu cầu nhập lại ");
-            removeStore(ACCESS_TOKEN);
-            removeStore(USER_LOGIN);
-            //chuyển hướng trang bằng f5
-            window.location.href='/login';
-
+        if (isMyTokenExpired) {
+          alert("Hết phiên đăng nhập yêu cầu đăng nhập lại !");
+          removeStore(ACCESS_TOKEN);
+          removeStore(USER_LOGIN);
+          window.location.href = "/login";
         }
-        history.push('/login')
-    }
-    return Promise.reject(err);
+        history.push("/login");
+      }
+      return Promise.reject(err);
 })
-
 
 
 /* Các status code thường gặp

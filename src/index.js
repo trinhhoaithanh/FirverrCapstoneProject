@@ -13,6 +13,9 @@ import UserProfile from './Pages/User/UserProfile/UserProfile';
 import TaskList from './Pages/User/TaskList/TaskList';
 import TaskDetail from './Pages/User/TaskDetail/TaskDetail';
 import TaskType from './Pages/User/TaskType/TaskType';
+import DefaultTemplate from './Templates/AdminTemplate/DefaultTemplate';
+// import QuanLyNguoiDung from './Pages/Admin/quanLy/NguoiDung'
+import router from './router';
 export const history = createBrowserHistory()
 
 
@@ -31,6 +34,10 @@ root.render(
                 <Route path='taskType' element={<TaskType/>}></Route>
 
                 <Route path='*' element={<Navigate to='/'/>}></Route>
+            </Route>
+            <Route path='admin' element={<DefaultTemplate/>}>
+                {router.admin.map(route => <Route path={route.path} element={route.element} key={route.key}></Route>)}
+
             </Route>
         </Routes>
     </HistoryRouter>
