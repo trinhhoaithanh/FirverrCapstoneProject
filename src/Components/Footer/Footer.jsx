@@ -2,7 +2,8 @@ import React from 'react'
 import "../Footer/Footer.scss"
 const Footer = () => {
   return (
-    <footer style={{postion:'absolute',bottom:'0',marginTop:'300px'}} className='footer container'>
+    <footer style={{postion:'absolute',marginTop:'4800px'}} className='footer container'>
+        <hr />
         <div className='footer-top'>
         <div className='row'>
             <div className='col-2'>

@@ -84,7 +84,7 @@ http.interceptors.response.use((res)=>{
 
 
 /* Các status code thường gặp
-    200: Request gửi đi và nhận về kết quả thành
+    200: Request gửi đi và nhận về kết quả thành công
     201: request gửi đi thành công và đã được khởi tạo 
     400: bad request => request gửi đi thành công tuy nhiên không tìm thấy dữ liệu từ tham số gửi đi
     404: Not found (Không tìm thấy api đó), hoặc tương tự 400

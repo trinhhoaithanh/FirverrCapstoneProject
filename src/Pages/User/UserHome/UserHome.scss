@@ -1,8 +1,4 @@
-*{
-    // font-family: ;
-    font-size: 16px;
-    color: white;
-}
+
 .user-home{
     background-image: url(../../../assets/img/banner-1.png);
     background-repeat: no-repeat;
@@ -12,7 +8,9 @@
     .carousel{
        padding-top: 200px;
        
-        h1{}
+        h1{
+            color: white;
+        }
         .navbar{
             
             .container-fluid{
@@ -32,7 +30,23 @@
             }
         }
         .job-name{
-            h6{}
+            span{
+                color: white;
+                font-weight: 500;
+                font-size: 20px;
+            }
+            .popular-btn{
+                background-color: transparent;
+                padding: 10px;
+                border: 1px solid #fff;
+                border-radius: 40px;
+                color: white;
+                font-weight: 500;
+                &:hover{
+                    background-color: #fff;
+                    color: #004119;
+                }
+            }
         }    
     }
     .brand{
@@ -49,18 +63,45 @@
     }
     .service{
         position: absolute;
-        bottom: 0;
+        top:1000px;
+        display:block;
+        left: 100px;
         h3{
+                font-weight: 700;
+                font-size: 32px;
+                color: #404145 !important;
 
+        }
+        .service-item{
+            .col-2{
+                img{
+
+                }
+                .content-item{
+                    top: 20px;
+                    left: 30px;
+                    
+                    small{
+                       font-size:18px;
+                       color: white;
+                    }
+                    h4{
+                        font-size:30px;
+                        font-weight:700;
+                        color: white;
+                    }
+                }
+            }
         }
     }
     .selling{
-        background-color:#f1fdf7;
-        color: black;
+        position:absolute;
+        top: 1500px;
         .row{
             .col-6{
                 h2{
                     ul{
+                       
                         li{
                            
                             h6{
@@ -76,6 +117,51 @@
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+    .category{
+        position: absolute;
+        top: 2500px;
+        left: 200px;
+        h2{
+
+        }
+        .category-list{
+           
+            .category-item{
+                margin-left: 40px;
+                a{
+                    text-decoration: none;
+                    img{}
+                    p{
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+    .cite{
+        padding: 40px;
+        position: absolute;
+        top: 2075px;
+        left:200px;
+        .container{
+            .row{
+                .col-4{
+                    picture{}
+                }
+                .col-6{
+                    margin-left: 170px;
+                    .text-cite{
+                        color: #003912;
+                        font-weight: 900;
+                        font-size: 25px;   
+                        
+    font-family: Helvetica ,Helvetica,Arial,sans-serif;
+ 
+                                    }
                 }
             }
         }

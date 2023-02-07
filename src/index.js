@@ -10,6 +10,9 @@ import UserLogin from './Pages/User/UserLogin/UserLogin';
 import "./assets/scss/style.scss";
 import UserRegister from './Pages/User/UserRegister/UserRegister';
 import UserProfile from './Pages/User/UserProfile/UserProfile';
+import TaskList from './Pages/User/TaskList/TaskList';
+import TaskDetail from './Pages/User/TaskDetail/TaskDetail';
+import TaskType from './Pages/User/TaskType/TaskType';
 export const history = createBrowserHistory()
 
 
@@ -23,6 +26,10 @@ root.render(
                 <Route path='registerUser' element={<UserRegister/>}></Route>
                 <Route path='loginUser' element={<UserLogin/>}></Route>
                 <Route path='profileUser' element={<UserProfile/>}></Route>
+                <Route path='taskList' element={<TaskList/>}></Route>
+                <Route path='taskDetail' element={<TaskDetail/>}></Route>
+                <Route path='taskType' element={<TaskType/>}></Route>
+
                 <Route path='*' element={<Navigate to='/'/>}></Route>
             </Route>
         </Routes>
