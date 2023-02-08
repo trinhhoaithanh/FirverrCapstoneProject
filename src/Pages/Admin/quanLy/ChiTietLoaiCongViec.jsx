@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input, Button, Space, Table, Form } from 'antd'
+import { Input, Button, Space, Table, Form, Tooltip, Image} from 'antd'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { callApi } from '../../../utils/config'
-import NguoiDungModal from '../modal/NguoiDungModal';
+import ChiTietLoaiCongViecModal from '../modal/ChiTietLoaiCongViecModal';
 import { AxiosError } from 'axios';
 import Loading from '../../../Components/loading/Loading';
 import { notification } from 'antd'
@@ -13,7 +13,7 @@ export const formType = {
     DETAIL: 'detail',
     ADD: 'add'
 }
-export default function NguoiDung() {
+export default function ChiTietLoaiCongViec() {
     const typeNotification = {
         SUCCESS: 'success',
         INFO: 'info',
@@ -29,84 +29,8 @@ export default function NguoiDung() {
         });
     };
 
-    // const dataSource = [
-    //     {
-    //       "id": 1591,
-    //       "name": "Cong Khanh",
-    //       "email": "khanhtran1254@gmail.com",
-    //       "password": "301220",
-    //       "phone": "1234567890",
-    //       "birthday": "30/12/2000",
-    //       "avatar": "",
-    //       "gender": true,
-    //       "role": "USER",
-    //       "skill": [
-    //         "string",
-    //         "HTML"
-    //       ],
-    //       "certification": [
-    //         "string",
-    //         "Udemy"
-    //       ],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1599,
-    //       "name": "AlaBoom",
-    //       "email": "alaboom@gmail.com",
-    //       "password": "alaboom123",
-    //       "phone": "0909123456",
-    //       "birthday": "01/11/2000",
-    //       "avatar": "",
-    //       "gender": false,
-    //       "role": "ADMIN",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1601,
-    //       "name": "Hoa Mai",
-    //       "email": "hoamai123@gmail.com",
-    //       "password": "hoamai123",
-    //       "phone": "0909123456",
-    //       "birthday": "29/10/2019",
-    //       "avatar": "",
-    //       "gender": false,
-    //       "role": "ADMIN",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1606,
-    //       "name": "khaidoa",
-    //       "email": "quangkhai09011@gmail.com",
-    //       "password": "Quangkhai1",
-    //       "phone": "",
-    //       "birthday": "2022/11/21",
-    //       "avatar": "",
-    //       "gender": true,
-    //       "role": "USER",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1610,
-    //       "name": "Ngan Ha",
-    //       "email": "nganha@gmail.com",
-    //       "password": "nganha123",
-    //       "phone": "0909123456",
-    //       "birthday": "01/11/2010",
-    //       "avatar": "",
-    //       "gender": false,
-    //       "role": "ADMIN",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     }
-    //   ];
+
+
     const [loading, setLoading] = useState(false)
     const [dataSource, setDataSource] = useState([])
     const [keySearch, setKeySearch] = useState('')
@@ -122,24 +46,24 @@ export default function NguoiDung() {
             key: 'id',
         },
         {
-            title: 'name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'Ten Nhom',
+            dataIndex: 'tenNhom',
+            key: 'tenNhom',
         },
         {
-            title: 'role',
-            dataIndex: 'role',
-            key: 'role',
+            title: 'Hinh Anh',
+            dataIndex: 'hinhAnh',
+            render: (_,record) =>{
+                return < Image 
+                    width={100}
+                    src= {record.hinhAnh}
+                />
+            }
         },
         {
-            title: 'phone',
-            dataIndex: 'phone',
-            key: 'phone',
-        },
-        {
-            title: 'email',
-            dataIndex: 'email',
-            key: 'email',
+            title: 'Ma Loai Cong Viec',
+            dataIndex: 'maLoaiCongviec',
+            key: 'maLoaiCongviec',
         },
         {
             title: '',
@@ -171,7 +95,7 @@ export default function NguoiDung() {
         try {
             configPagination({ pageIndex, pageSize })
             setLoading(true)
-            const data = await callApi('get', '/api/users/phan-trang-tim-kiem', {
+            const data = await callApi('get', '/api/chi-tiet-loai-cong-viec/phan-trang-tim-kiem', {
                 pageIndex,
                 pageSize,
                 keyword
@@ -193,9 +117,7 @@ export default function NguoiDung() {
     const deleteApi = async (id) => {
         try {
             setLoading(true)
-            await callApi('delete', '/api/users', {
-                id
-            })
+            await callApi('delete', `/api/chi-tiet-loai-cong-viec/${id}`)
             setLoading(false)
             openNotification(typeNotification.SUCCESS, 'xóa thành công', 'xóa thành công')
         } catch (error) {
@@ -206,30 +128,30 @@ export default function NguoiDung() {
     const addApi = async () => {
         try {
             setLoading(true)
-            await callApi('post', '/api/users', null, {
-                ...form.getFieldValue(), 
-                skill: form.getFieldValue().skill?.split(','),
-                certification: form.getFieldValue().certification?.split(',')
+            await callApi('post', '/api/chi-tiet-loai-cong-viec/them-nhom-chi-tiet-loai', null, {
+                ...form.getFieldValue(),
+                'tenChiTiet': form.getFieldValue().tenNhom
             })
-            console.log({
-                ...form.getFieldValue(), 
-                skill: form.getFieldValue().skill?.split(','),
-                certification: form.getFieldValue().certification?.split(',')
-            });
             setLoading(false)
             openNotification(typeNotification.SUCCESS, 'thêm thành công', 'thêm thành công')
         } catch (error) {
             setLoading(false)
             if (error instanceof AxiosError)
-                openNotification(typeNotification.ERROR, 'thêm thất bại', 'thêm thất bại')
+                openNotification(typeNotification.ERROR, error.response.data.content, error.response.data.content)
         }
     }
     const detailApi = async (id) => {
         try {
             setLoading(true)
-            const result = await callApi('get', `/api/users/${id}`)
+            const result = await callApi('get', `/api/chi-tiet-loai-cong-viec/${id}`)
             setLoading(false)
-            form.setFieldsValue(result.data.content)
+            
+            form.setFieldsValue({...result.data.content, dsChiTietLoai: result.data.content.dsChiTietLoai?.map((ct) => {
+                return {
+                    label: ct.tenChiTiet,
+                    value: String(ct.id),
+                }
+            })})
         } catch (error) {
             setLoading(false)
         }
@@ -237,11 +159,12 @@ export default function NguoiDung() {
     const editApi = async (id) => {
         try {
             setLoading(true)
-            await callApi('put', `/api/users/${id}`, null, {
+            await callApi('put', `/api/chi-tiet-loai-cong-viec/sua-nhom-chi-tiet-loai/${id}`, null, {
                 ...form.getFieldValue(),
+                'tenChiTiet': form.getFieldValue().tenNhom
             })
             setLoading(false)
-            openNotification(typeNotification.SUCCESS,'sửa thông tin thành công', 'sửa thông tin thành công')
+            openNotification(typeNotification.SUCCESS, 'sửa thông tin thành công', 'sửa thông tin thành công')
         } catch (error) {
             setLoading(false)
             if (error instanceof AxiosError)
@@ -300,7 +223,6 @@ export default function NguoiDung() {
             addApi()
         }
         if (modeForm === formType.EDIT) {
-            console.log('sua');
             await editApi(form.getFieldValue().id)
             searchApi(current, pageSize, keySearch)
         }
@@ -315,11 +237,11 @@ export default function NguoiDung() {
             {contextHolder}
 
             <br />
-            <Button type="primary" onClick={handleClickAdd}>Thêm quản trị viên</Button>
+            <Button type="primary" onClick={handleClickAdd}>Thêm nhóm chi tiết công việc</Button>
             <br /> <br />
             <Space wrap>
                 <Input.Search
-                    placeholder='nhập vào tài khoản họ tên người dùng'
+                    placeholder='nhập vào tên nhóm chi tiết công việc'
                     maxLength={100}
                     style={{ width: '500px' }}
                     onSearch={handleSearch}
@@ -333,7 +255,7 @@ export default function NguoiDung() {
                 pagination={pagination}
                 scroll={{ y: 400 }}
             />;
-            <NguoiDungModal
+            <ChiTietLoaiCongViecModal
                 isModalOpen={isModalOpen}
                 onOk={handleOk}
                 onCancel={() => setIsModalopen(false)}

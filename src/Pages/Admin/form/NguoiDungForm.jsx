@@ -42,7 +42,6 @@ function NguoiDungForm(props) {
                             message: 'Please input id'
                         }
                     ]}
-                    hidden={disabled}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
@@ -64,7 +63,7 @@ function NguoiDungForm(props) {
                     name='email'
                     rules={[
                         {
-                            required: false,
+                            required: true,
                             message: 'Please input email'
                         }
                     ]}
@@ -100,7 +99,7 @@ function NguoiDungForm(props) {
                     name='birthday'
                     rules={[
                         {
-                            required: true,
+                            required: false,
                             message: 'Please input birthday'
                         }
                     ]}
@@ -148,7 +147,7 @@ function NguoiDungForm(props) {
                         }
                     ]}
                 >
-                    <Input.TextArea rows={5} disabled={disabled}/>
+                    <Input.TextArea rows={5} disabled={mode===formType.ADD ? false : true}/>
                 </Form.Item>
                 <Form.Item
                     label='certification'
@@ -160,7 +159,7 @@ function NguoiDungForm(props) {
                         }
                     ]}
                 >
-                    <Input.TextArea rows={5} disabled={disabled}/>
+                    <Input.TextArea rows={5} disabled={mode===formType.ADD ? false : true}/>
                 </Form.Item>
             </Form>
 

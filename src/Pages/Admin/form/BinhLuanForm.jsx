@@ -47,44 +47,44 @@ function CongViecForm(props) {
                 </Form.Item>
                 {/* <p hidden={!disabled}>{form.getFieldsValue().id}</p> */}
                 <Form.Item
-                    label='tên công việc'
-                    name='tenCongViec'
+                    label='mã công việc'
+                    name='maCongViec'
                     rules={[
                         {
                             required: true,
-                            message: 'hãy nhập tên công việc'
+                            message: 'hãy nhập mã công việc'
                         }
                     ]}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='đánh giá'
-                    name='danhGia'
+                    label='mã người bình luận'
+                    name='maNguoiBinhLuan'
                     rules={[
                         {
                             required: true,
-                            message: 'hãy nhập đánh giá'
+                            message: 'hãy nhập mã người bình luận'
                         }
                     ]}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='giá tiền'
-                    name='giaTien'
+                    label='ngày bình luận'
+                    name='ngayBinhLuan'
                     rules={[
                         {
                             required: true,
-                            message: 'hãy nhập giá tiền'
+                            message: 'hãy nhập ngày bình luận'
                         }
                     ]}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='mô tả'
-                    name='moTa'
+                    label='nội dung'
+                    name='noiDung'
                     rules={[
                         {
                             required: true,
@@ -92,40 +92,15 @@ function CongViecForm(props) {
                         }
                     ]}
                 >
-                    <Input.TextArea rows={5} disabled={disabled}/>
-                </Form.Item>
-                <Form.Item
-                    label='mã chi tiết công việc'
-                    name='maChiTietLoaiCongViec'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'hãy nhập mã chi tiết công việc'
-                        }
-                    ]}
-                >
-                    
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='mô tả ngắn gọn'
-                    name='moTaNgan'
+                    label='số sao'
+                    name='saoBinhLuan'
                     rules={[
                         {
                             required: true,
-                            message: 'hãy nhập mô tả ngắn gọn'
-                        }
-                    ]}
-                >
-                    <Input.TextArea rows={5} disabled={disabled}/>
-                </Form.Item>
-                <Form.Item
-                    label='sao công việc'
-                    name='saoCongViec'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'hãy nhập sao công việc'
+                            message: 'hãy nhập số sao'
                         }
                     ]}
                 >

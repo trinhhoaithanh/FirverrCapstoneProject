@@ -1,11 +1,11 @@
 import React from 'react'
-import { Input, Button, Space, Table, Form, Tooltip} from 'antd'
+import { Input, Button, Space, Table, Form, Tooltip, Image} from 'antd'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { callApi } from '../../../utils/config'
 import CongViecModal from '../modal/CongViecModal';
 import { AxiosError } from 'axios';
-import Loading from '../../../components/loading/Loading';
+import Loading from '../../../Components/loading/Loading';
 import { notification } from 'antd'
 
 export const formType = {
@@ -46,27 +46,24 @@ export default function CongViec() {
             key: 'id',
         },
         {
-            title: 'Ten Cong Viec',
+            title: 'tên công việc',
             dataIndex: 'tenCongViec',
             key: 'tenCongViec',
         },
         {
-            title: 'Danh Gia',
-            dataIndex: 'danhGia',
-            key: 'danhGia',
-        },
-        {
-            title: 'Gia Tien',
+            title: 'giá tiền',
             dataIndex: 'giaTien',
             key: 'giaTien',
         },
         {
-            title: 'maChiTietLoaiCongViec',
-            dataIndex: 'maChiTietLoaiCongViec',
-            key: 'maChiTietLoaiCongViec',
+            title: 'hình ảnh',
+            dataIndex: 'hinhAnh',
+            render: (_, record) => {
+                return <Image width={100} src={record.hinhAnh}/>
+            }
         },
         {
-            title: 'Mo Ta Ngan',
+            title: 'mô tả ngắn',
             dataIndex: 'moTaNgan',
             key: 'moTaNgan',
             render: (_, record) => {
@@ -77,11 +74,6 @@ export default function CongViec() {
                     </Tooltip>
                 )
             }
-        },
-        {
-            title: 'Sao Cong Viec',
-            dataIndex: 'saoCongViec',
-            key: 'saoCongViec',
         },
         {
             title: '',
@@ -135,14 +127,12 @@ export default function CongViec() {
     const deleteApi = async (id) => {
         try {
             setLoading(true)
-            await callApi('delete', '/api/cong-viec', {
-                // id
-            })
+            await callApi('delete', `/api/cong-viec/${id}`)
             setLoading(false)
             openNotification(typeNotification.SUCCESS, 'xóa thành công', 'xóa thành công')
         } catch (error) {
             setLoading(false)
-            openNotification(typeNotification.ERROR, 'xóa thất bại', 'xóa thất bại')
+            openNotification(typeNotification.ERROR, 'xóa thất bại', 'không đủ quyền xóa')
         }
     }
     const addApi = async () => {
@@ -176,7 +166,7 @@ export default function CongViec() {
         } catch (error) {
             setLoading(false)
             if (error instanceof AxiosError)
-                openNotification(typeNotification.ERROR, 'sửa thông tin thất bại', 'sửa thông tin thất bại')
+                openNotification(typeNotification.ERROR, 'sửa thông tin thất bại', 'không đủ quyền sửa')
         }
     }
 
