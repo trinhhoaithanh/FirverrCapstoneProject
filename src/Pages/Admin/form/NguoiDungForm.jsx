@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Form, Input, DatePicker, Select, Button } from 'antd'
-import locale from 'antd/es/date-picker/locale/zh_CN';
+
 import { useEffect } from 'react';
-import moment from 'moment'
+
 import {formType} from '../quanLy/NguoiDung'
 
 function NguoiDungForm(props) {

@@ -1,21 +1,19 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { history } from "../../../index.js";
 import { getPopularApi } from "../../../redux/reducers/popularReducer";
 import '../UserHome/UserHome.scss'
 const UserHome = () => {
-  const dispatch=useDispatch();
   const {arrPopular}=useSelector(state => state.popularReducer)
-  console.log(arrPopular)
-  const getAllPopularApi=async()=>{
-    const action = getPopularApi();
-    dispatch(action);
-    
-  }
+  
+  const dispatch=useDispatch();
+  
+ 
   useEffect(()=>{
-    getAllPopularApi();
+    const actionAsync = getPopularApi()
+    dispatch(actionAsync)
   },[])
   return (
     <div className="user-home">
@@ -46,7 +44,7 @@ const UserHome = () => {
           
               <button key={index} className="popular-btn mx-1" onClick={()=>{
                 history.push('/taskList')
-              }}>{item.tenChiTietLoai}</button>
+              }}>{item.tenLoaiCongViec}</button>
             
           )
     })}

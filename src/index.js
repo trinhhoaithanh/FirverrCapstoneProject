@@ -25,13 +25,23 @@ root.render(
     <HistoryRouter history={history}>
         <Routes >
             <Route path='' element={<HomeTemplate />}>
-                <Route index element={<UserHome/>}></Route>
+                <Route index element={<UserHome/>}>
+                  
+                </Route>
                 <Route path='registerUser' element={<UserRegister/>}></Route>
                 <Route path='loginUser' element={<UserLogin/>}></Route>
                 <Route path='profileUser' element={<UserProfile/>}></Route>
-                <Route path='taskList' element={<TaskList/>}></Route>
-                <Route path='taskDetail' element={<TaskDetail/>}></Route>
-                <Route path='taskType' element={<TaskType/>}></Route>
+                <Route path='taskList' element={<TaskList/>}>
+                   
+                </Route>
+                <Route path='taskDetail' element={<TaskDetail/>}>
+                  <Route path=':id' element={<TaskDetail/>}></Route>
+                  
+
+                </Route>
+                <Route path='taskType' element={<TaskType/>}>
+                  <Route path=':id' element={<TaskType/>}></Route>
+                </Route>
 
                 <Route path='*' element={<Navigate to='/'/>}></Route>
             </Route>

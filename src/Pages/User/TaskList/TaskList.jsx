@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPopularApi, getTaskListApi, getTaskTypeApi } from '../../../redux/reducers/popularReducer';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Space, Switch,Pagination } from 'antd';
 import TaskCard from '../../../Components/TaskCard/TaskCard';
 import { history } from '../../../index.js';
@@ -14,11 +14,7 @@ const handleMenuClick = (e) => {
 const onChange = (checked) => {
   console.log(`switch to ${checked}`);
 };
-const items=[]
-const menuProps = {
-  items,
-  onClick: handleMenuClick,
-};
+
 
 
 const TaskList = () => {
@@ -54,6 +50,11 @@ const TaskList = () => {
   const onChangePage = (page) => {
     console.log(page);
     setCurrent(page);
+  };
+  const items= []
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
   };
   return (    
     <div className='task-list'>

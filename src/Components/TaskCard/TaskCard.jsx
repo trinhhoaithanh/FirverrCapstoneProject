@@ -8,9 +8,7 @@ const TaskCard = ({task}) => {
     
   return (
    
-       <div onClick={()=>{
-        history.push('/taskDetail')
-       }} className="card mt-5" style={{height:'520px',cursor:'pointer'}}>
+        <NavLink className='card' style={{textDecoration:'none'}} to={`/taskDetail/${task.id}`}>
         <img className="card-img-top" src={task.congViec.hinhAnh} alt="Title" />
         <div className="card-body p-2 mt-2">
         <div className="card-title">
@@ -40,7 +38,7 @@ const TaskCard = ({task}) => {
         </div>
 
         </div>
-       <hr />
+       <hr style={{color:'black'}}/>
 
         <div className='row'>
           <div className='col-6 ps-4'>
@@ -51,7 +49,7 @@ const TaskCard = ({task}) => {
           </div>
         
         </div>
-        </div>
+        </NavLink>
 
    
   )

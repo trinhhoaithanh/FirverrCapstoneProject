@@ -1,0 +1,29 @@
+.profile{
+    position: absolute;
+    top: 60px;    
+    left: 100px;
+    
+    
+    
+    .menu-task{
+        .container{
+            .navbar{
+                .container{
+                    .collapse{
+                        .navbar-nav{
+                            .nav-item{
+                                margin-left: 15px !important;
+                                color: #6f7071;
+                                font-weight: 400;
+                                span{
+                                    font-size: 15px;
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
