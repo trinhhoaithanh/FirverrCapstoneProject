@@ -1,7 +1,4 @@
-* {
-  font-size: 16px;
-  color: white;
-}
+
 
 .user-home {
   background-image: url(../../../assets/img/banner-1.png);
@@ -62,3 +59,18 @@
 .footer .footer-bottom .row .col-5 .row .col-8 .legal {
   color: #b5b6ba;
 }/*# sourceMappingURL=style.css.map */
+
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+

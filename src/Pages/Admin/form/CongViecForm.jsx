@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
-
-import { Form, Input, DatePicker, Select, Button } from 'antd'
-
+import { Form, Input, Select } from 'antd'
 import { useEffect } from 'react';
+import {formType} from '../quanLy/CongViec'
 
-
-import {formType} from '../quanLy/NguoiDung'
-
-function NguoiDungForm(props) {
+function CongViecForm(props) {
     const { form, mode} = props
     const [disabled, setDisabled] = useState(false);
     // const [initialValues, setInitialValues] = useState({
@@ -43,7 +39,7 @@ function NguoiDungForm(props) {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input id'
+                            message: 'hãy nhập id'
                         }
                     ]}
                 >
@@ -51,60 +47,60 @@ function NguoiDungForm(props) {
                 </Form.Item>
                 {/* <p hidden={!disabled}>{form.getFieldsValue().id}</p> */}
                 <Form.Item
-                    label='name'
-                    name='name'
+                    label='tên công việc'
+                    name='tenCongViec'
                     rules={[
                         {
                             required: true,
-                            message: 'Please input name'
+                            message: 'hãy nhập tên công việc'
                         }
                     ]}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='email'
-                    name='email'
+                    label='đánh giá'
+                    name='danhGia'
                     rules={[
                         {
                             required: true,
-                            message: 'Please input email'
+                            message: 'hãy nhập đánh giá'
                         }
                     ]}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='password'
-                    name='password'
+                    label='giá tiền'
+                    name='giaTien'
                     rules={[
                         {
                             required: true,
-                            message: 'Please input password'
+                            message: 'hãy nhập giá tiền'
                         }
                     ]}
                 >
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='phone'
-                    name='phone'
+                    label='mô tả'
+                    name='moTa'
                     rules={[
                         {
-                            required: false,
-                            message: 'Please input phone'
+                            required: true,
+                            message: 'hãy nhập mô tả'
                         }
                     ]}
                 >
-                    <Input disabled={disabled}/>
+                    <Input.TextArea rows={5} disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='birthday'
-                    name='birthday'
+                    label='mã chi tiết công việc'
+                    name='maChiTietLoaiCongViec'
                     rules={[
                         {
-                            required: false,
-                            message: 'Please input birthday'
+                            required: true,
+                            message: 'hãy nhập mã chi tiết công việc'
                         }
                     ]}
                 >
@@ -112,63 +108,34 @@ function NguoiDungForm(props) {
                     <Input disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='gender'
-                    name='gender'
+                    label='mô tả ngắn gọn'
+                    name='moTaNgan'
                     rules={[
                         {
                             required: true,
-                            message: 'Please input gender'
+                            message: 'hãy nhập mô tả ngắn gọn'
                         }
                     ]}
                 >
-                    <Select disabled={disabled}>
-                        <Select.Option value={true}>nam</Select.Option>
-                        <Select.Option value={false}>nu</Select.Option>
-                    </Select>
+                    <Input.TextArea rows={5} disabled={disabled}/>
                 </Form.Item>
                 <Form.Item
-                    label='role'
-                    name='role'
+                    label='sao công việc'
+                    name='saoCongViec'
                     rules={[
                         {
                             required: true,
-                            message: 'Please input role'
+                            message: 'hãy nhập sao công việc'
                         }
                     ]}
                 >
-                    <Select disabled={disabled}>
-                        <Select.Option value="ADMIN">ADMIN</Select.Option>
-                        <Select.Option value="USER">USER</Select.Option>
-                    </Select>
+                    <Input disabled={disabled}/>
                 </Form.Item>
-                <Form.Item
-                    label='skill'
-                    name='skill'
-                    rules={[
-                        {
-                            required: false,
-                            // message: 'Please input skill'
-                        }
-                    ]}
-                >
-                    <Input.TextArea rows={5} disabled={mode===formType.ADD ? false : true}/>
-                </Form.Item>
-                <Form.Item
-                    label='certification'
-                    name='certification'
-                    rules={[
-                        {
-                            required: false,
-                            // message: 'Please input certification'
-                        }
-                    ]}
-                >
-                    <Input.TextArea rows={5} disabled={mode===formType.ADD ? false : true}/>
-                </Form.Item>
+                
             </Form>
 
         </div>
     )
 }
 
-export default NguoiDungForm
+export default CongViecForm

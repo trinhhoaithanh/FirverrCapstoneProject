@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input, Button, Space, Table, Form } from 'antd'
+import { Input, Button, Space, Table, Form, Tooltip} from 'antd'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { callApi } from '../../../utils/config'
-import NguoiDungModal from '../modal/NguoiDungModal';
+import BinhLuanModal from '../modal/BinhLuanModal';
 import { AxiosError } from 'axios';
 import Loading from '../../../Components/loading/Loading';
 import { notification } from 'antd'
@@ -13,7 +13,7 @@ export const formType = {
     DETAIL: 'detail',
     ADD: 'add'
 }
-export default function NguoiDung() {
+export default function BinhLuan() {
     const typeNotification = {
         SUCCESS: 'success',
         INFO: 'info',
@@ -29,84 +29,8 @@ export default function NguoiDung() {
         });
     };
 
-    // const dataSource = [
-    //     {
-    //       "id": 1591,
-    //       "name": "Cong Khanh",
-    //       "email": "khanhtran1254@gmail.com",
-    //       "password": "301220",
-    //       "phone": "1234567890",
-    //       "birthday": "30/12/2000",
-    //       "avatar": "",
-    //       "gender": true,
-    //       "role": "USER",
-    //       "skill": [
-    //         "string",
-    //         "HTML"
-    //       ],
-    //       "certification": [
-    //         "string",
-    //         "Udemy"
-    //       ],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1599,
-    //       "name": "AlaBoom",
-    //       "email": "alaboom@gmail.com",
-    //       "password": "alaboom123",
-    //       "phone": "0909123456",
-    //       "birthday": "01/11/2000",
-    //       "avatar": "",
-    //       "gender": false,
-    //       "role": "ADMIN",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1601,
-    //       "name": "Hoa Mai",
-    //       "email": "hoamai123@gmail.com",
-    //       "password": "hoamai123",
-    //       "phone": "0909123456",
-    //       "birthday": "29/10/2019",
-    //       "avatar": "",
-    //       "gender": false,
-    //       "role": "ADMIN",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1606,
-    //       "name": "khaidoa",
-    //       "email": "quangkhai09011@gmail.com",
-    //       "password": "Quangkhai1",
-    //       "phone": "",
-    //       "birthday": "2022/11/21",
-    //       "avatar": "",
-    //       "gender": true,
-    //       "role": "USER",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     },
-    //     {
-    //       "id": 1610,
-    //       "name": "Ngan Ha",
-    //       "email": "nganha@gmail.com",
-    //       "password": "nganha123",
-    //       "phone": "0909123456",
-    //       "birthday": "01/11/2010",
-    //       "avatar": "",
-    //       "gender": false,
-    //       "role": "ADMIN",
-    //       "skill": [],
-    //       "certification": [],
-    //       "bookingJob": []
-    //     }
-    //   ];
+
+
     const [loading, setLoading] = useState(false)
     const [dataSource, setDataSource] = useState([])
     const [keySearch, setKeySearch] = useState('')
@@ -122,33 +46,34 @@ export default function NguoiDung() {
             key: 'id',
         },
         {
-            title: 'name',
-            dataIndex: 'name',
-            key: 'name',
+            title: 'mã công việc',
+            dataIndex: 'maCongViec',
+            key: 'maCongViec',
         },
         {
-            title: 'role',
-            dataIndex: 'role',
-            key: 'role',
+            title: 'mã người bình luận',
+            dataIndex: 'maNguoiBinhLuan',
+            key: 'maNguoiBinhLuan'
         },
         {
-            title: 'phone',
-            dataIndex: 'phone',
-            key: 'phone',
+            title: 'nội dung',
+            dataIndex: 'noiDung',
+            key: 'noiDung'
         },
         {
-            title: 'email',
-            dataIndex: 'email',
-            key: 'email',
+            title: 'số sao',
+            dataIndex: 'saoBinhLuan',
+            key: 'saoBinhLuan'
         },
+        
         {
             title: '',
             dataIndex: '',
             render: (_, record) => {
                 return (
                     <Space wrap>
-                        <Button type="primary" onClick={() => handleClickDetail(record.id)}>xem thông tin chi tiết</Button>
-                        <Button type="dashed" onClick={() => handlleClickEdit(record.id)}>sửa</Button>
+                        <Button type="primary" onClick={() => handleClickDetail(record)}>xem thông tin chi tiết</Button>
+                        <Button type="dashed" onClick={() => handlleClickEdit(record)}>sửa</Button>
                         <Button type="dashed" danger onClick={() => {
                             // console.log(record.id)
                             deleteUser(record.id)
@@ -169,18 +94,18 @@ export default function NguoiDung() {
     const searchApi = async (pageIndex, pageSize, keyword) => {
         // const result = await http.get(`/api/users/phan-trang-tim-kiem?pageIndex=${pageIndex}&pageSize=${pageSize}&keyword=${ketword}`)
         try {
-            configPagination({ pageIndex, pageSize })
+            // configPagination({ pageIndex, pageSize })
             setLoading(true)
-            const data = await callApi('get', '/api/users/phan-trang-tim-kiem', {
-                pageIndex,
-                pageSize,
-                keyword
-            })
+            let data
+            if(keyword)
+                data = await callApi('get', `/api/binh-luan/lay-binh-luan-theo-cong-viec/${keyword}`)
+            else 
+                data = await callApi('get', '/api/binh-luan')
             setLoading(false)
-            configPagination({
-                totalPage: data.data.content.totalRow
-            })
-            setDataSource(data.data.content.data.map(item => {
+            // configPagination({
+            //     totalPage: data.data.content.totalRow
+            // })
+            setDataSource(data.data.content.map(item => {
                 return {
                     ...item,
                     key: item.id
@@ -188,14 +113,13 @@ export default function NguoiDung() {
             }))
         } catch (error) {
             setLoading(false)
+            openNotification(typeNotification.ERROR, 'lỗi 500', 'xin lỗi vì sự cố trên')
         }
     }
     const deleteApi = async (id) => {
         try {
             setLoading(true)
-            await callApi('delete', '/api/users', {
-                id
-            })
+            await callApi('delete', `/api/binh-luan/${id}`)
             setLoading(false)
             openNotification(typeNotification.SUCCESS, 'xóa thành công', 'xóa thành công')
         } catch (error) {
@@ -206,30 +130,21 @@ export default function NguoiDung() {
     const addApi = async () => {
         try {
             setLoading(true)
-            await callApi('post', '/api/users', null, {
-                ...form.getFieldValue(), 
-                skill: form.getFieldValue().skill?.split(','),
-                certification: form.getFieldValue().certification?.split(',')
-            })
-            console.log({
-                ...form.getFieldValue(), 
-                skill: form.getFieldValue().skill?.split(','),
-                certification: form.getFieldValue().certification?.split(',')
-            });
+            await callApi('post', '/api/binh-luan', null, form.getFieldValue())
             setLoading(false)
             openNotification(typeNotification.SUCCESS, 'thêm thành công', 'thêm thành công')
         } catch (error) {
             setLoading(false)
             if (error instanceof AxiosError)
-                openNotification(typeNotification.ERROR, 'thêm thất bại', 'thêm thất bại')
+                openNotification(typeNotification.ERROR, error.response.data.content, error.response.data.content)
         }
     }
-    const detailApi = async (id) => {
+    const detailApi = async (record) => {
         try {
             setLoading(true)
-            const result = await callApi('get', `/api/users/${id}`)
+            // const result = await callApi('get', `/api/binh-luan/${id}`)
             setLoading(false)
-            form.setFieldsValue(result.data.content)
+            form.setFieldsValue(record)
         } catch (error) {
             setLoading(false)
         }
@@ -237,11 +152,9 @@ export default function NguoiDung() {
     const editApi = async (id) => {
         try {
             setLoading(true)
-            await callApi('put', `/api/users/${id}`, null, {
-                ...form.getFieldValue(),
-            })
+            await callApi('put', `/api/binh-luan/${id}`, null, form.getFieldValue())
             setLoading(false)
-            openNotification(typeNotification.SUCCESS,'sửa thông tin thành công', 'sửa thông tin thành công')
+            openNotification(typeNotification.SUCCESS, 'sửa thông tin thành công', 'sửa thông tin thành công')
         } catch (error) {
             setLoading(false)
             if (error instanceof AxiosError)
@@ -279,15 +192,15 @@ export default function NguoiDung() {
         openModal()
     }
 
-    const handleClickDetail = (id) => {
+    const handleClickDetail = (record) => {
         setModeForm(formType.DETAIL)
-        detailApi(id)
+        detailApi(record)
         openModal()
     }
 
-    const handlleClickEdit = (id) => {
+    const handlleClickEdit = (record) => {
         setModeForm(formType.EDIT)
-        detailApi(id)
+        detailApi(record)
         openModal()
     }
 
@@ -300,7 +213,6 @@ export default function NguoiDung() {
             addApi()
         }
         if (modeForm === formType.EDIT) {
-            console.log('sua');
             await editApi(form.getFieldValue().id)
             searchApi(current, pageSize, keySearch)
         }
@@ -315,25 +227,25 @@ export default function NguoiDung() {
             {contextHolder}
 
             <br />
-            <Button type="primary" onClick={handleClickAdd}>Thêm quản trị viên</Button>
+            <Button type="primary" onClick={handleClickAdd}>thêm bình luận</Button>
             <br /> <br />
-            <Space wrap>
+            {/* <Space wrap>
                 <Input.Search
-                    placeholder='nhập vào tài khoản họ tên người dùng'
+                    placeholder='nhập vào tên công việc'
                     maxLength={100}
                     style={{ width: '500px' }}
                     onSearch={handleSearch}
                 />
-                {/* <Button type="primary">tìm</Button> */}
 
-            </Space> <br /><br />
+            </Space>  */}
+            <br /><br />
             <Table
                 dataSource={dataSource}
                 columns={columns}
-                pagination={pagination}
+                // pagination={pagination}
                 scroll={{ y: 400 }}
             />;
-            <NguoiDungModal
+            <BinhLuanModal
                 isModalOpen={isModalOpen}
                 onOk={handleOk}
                 onCancel={() => setIsModalopen(false)}
