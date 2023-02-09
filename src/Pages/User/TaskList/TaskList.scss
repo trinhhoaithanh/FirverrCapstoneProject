@@ -1,0 +1,77 @@
+.task-list{
+    position: absolute;
+    top: 60px;    
+    left: 100px;
+    
+    
+    
+    .menu-task{
+        .container{
+            .navbar{
+                .container{
+                    .collapse{
+                        .navbar-nav{
+                            .nav-item{
+                                margin-left: 15px !important;
+                                color: #6f7071;
+                                font-weight: 400;
+                                span{
+                                    font-size: 15px;
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .result{
+        .container{
+            .result-header{
+
+            }
+            .dropdown-nav{
+                .navbar{
+                    .container{
+                        .collapse{
+                            .navbar-nav{
+                               .nav-item{
+
+                               } 
+                            }
+                            .switching{
+                                .navbar-nav{
+                                    .nav-item{
+                                        .row{
+                                            .col-3{
+
+                                            }
+                                            .col-8{
+                                                p{}
+                                            }
+                                        }
+                                    }
+                                }
+                            }   
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .list-task{
+        .container{
+            .row{
+                .col-3{
+
+                }
+            }
+        }
+    }
+    .pagination{
+        .page{
+            margin-left: 750px;
+        }
+    }
+}

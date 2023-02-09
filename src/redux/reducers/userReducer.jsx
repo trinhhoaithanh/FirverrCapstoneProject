@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ACCESS_TOKEN, getStore, getStoreJson, http, saveStore, saveStoreJson, USER_LOGIN,USER_REGISTER } from '../../utils/config';
+import {USER_PROFILE, ACCESS_TOKEN, getStore, getStoreJson, http, saveStore, saveStoreJson, USER_LOGIN,USER_REGISTER } from '../../utils/config';
 import { history } from '../../index';
 const initialState = {
     userLogin:getStoreJson(USER_LOGIN),
-    userRegister:getStore(USER_REGISTER)
+    userRegister:getStore(USER_REGISTER),
+    userProfile: getStoreJson(USER_PROFILE)
 }
 
 const userReducer = createSlice({
@@ -15,11 +16,16 @@ const userReducer = createSlice({
     },
     registerAction:(state,action)=>{
       state.userRegister = action.payload;
-    }
+    },
+    getProfileAction: (state,action) => {
+      state.userProfile = action.payload
+  }, updateProfileAction:(state,action)=>{
+    state = action.payload
+}
   }
 });
 
-export const {loginAction,registerAction} = userReducer.actions
+export const {loginAction,registerAction,getProfileAction,updateProfileAction} = userReducer.actions
 
 export default userReducer.reducer
 
@@ -47,3 +53,25 @@ export const registerApi = (userRegister)=>{
     history.push('/loginUser');
   }
 }
+export const getProfileApi = (id) => {
+  return async (dispatch) => {
+      const result = await http.get(`/api/users/${id}`);
+      // cập nhật cho reducer
+      const action = getProfileAction(result.data.content);
+      dispatch(action);
+      console.log(result.data.content)
+      saveStoreJson(USER_PROFILE, result.data.content)
+    };
+}
+export const updateProfileApi = (updateProfile) => {
+  return async dispatch => {
+    await http.post('/api/Users/updateProfile', updateProfile).then((res) => {
+      const action = updateProfileAction(res.data.content);
+      dispatch(action);
+      alert("Update successfully");
+    }).catch((err) => {
+      alert(`${err.response.data.content}`);
+      return;
+    })
+  }
+};

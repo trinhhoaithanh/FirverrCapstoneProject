@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
-import { Form, Input, Select } from 'antd'
+
+import { Form, Input, DatePicker, Select, Button } from 'antd'
+
 import { useEffect } from 'react';
+
+
 import {formType} from '../quanLy/NguoiDung'
 
 function NguoiDungForm(props) {

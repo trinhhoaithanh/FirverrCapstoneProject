@@ -1,15 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
 import { NavLink } from "react-router-dom";
 import "../../assets/scss/style.scss"
 const HeaderHome = () => {
-  // const { userLogin } = useSelector(state => state.userReducer);
+  
   return (
-    <div style={{backgroundColor:'transparent',position:'absolute'}} className="header-home row">
-      <nav className="navbar navbar-expand-sm navbar-dark">
+    <div style={{backgroundColor:'transparent',position:'absolute'}} className="header-home ">
+      <nav className="navbar navbar-expand-sm navbar-dark row">
         
-          <div className="col-4">
-          <NavLink className="navbar-brand" to="/" style={{ marginLeft: "24px" }}>
+          <div className="col-3">
+          <NavLink className="navbar-brand" to="/" style={{ marginLeft: "40px" }}>
           <svg
             width="89"
             height="27"
@@ -36,11 +36,15 @@ const HeaderHome = () => {
         />
           </div>
           
-          <div className="col-8">
+          <div className="col-12"></div>
+          <div className="col-12"></div>
+          <div className="col-12"></div>
+
+          <div className="col-12">
           <div className="collapse navbar-collapse text-right" id="collapsibleNavId">
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link active text-white" to="/" aria-current="page">
+              <NavLink style={{color:'#74767E',fontSize:'700'}} className="nav-link active" to="/" aria-current="page">
                 Become a Seller
               </NavLink>
             </li>
@@ -49,8 +53,8 @@ const HeaderHome = () => {
                */}
               <NavLink
                 type="button"
-                className="nav-link active text-white"
-                
+                className="nav-link active"
+                style={{color:'#74767E',fontSize:'700'}}
                 to="/loginUser"
               >
                 Sign In

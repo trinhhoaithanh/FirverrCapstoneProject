@@ -10,6 +10,9 @@ import UserLogin from './Pages/User/UserLogin/UserLogin';
 import "./assets/scss/style.scss";
 import UserRegister from './Pages/User/UserRegister/UserRegister';
 import UserProfile from './Pages/User/UserProfile/UserProfile';
+import TaskList from './Pages/User/TaskList/TaskList';
+import TaskDetail from './Pages/User/TaskDetail/TaskDetail';
+import TaskType from './Pages/User/TaskType/TaskType';
 import DefaultTemplate from './Templates/AdminTemplate/DefaultTemplate';
 // import QuanLyNguoiDung from './Pages/Admin/quanLy/NguoiDung'
 import router from './router';
@@ -23,10 +26,24 @@ root.render(
     <HistoryRouter history={history}>
         <Routes >
             <Route path='' element={<HomeTemplate />}>
-                <Route index element={<UserHome/>}></Route>
+                <Route index element={<UserHome/>}>
+                  
+                </Route>
                 <Route path='registerUser' element={<UserRegister/>}></Route>
                 <Route path='loginUser' element={<UserLogin/>}></Route>
                 <Route path='profileUser' element={<UserProfile/>}></Route>
+                <Route path='taskList' element={<TaskList/>}>
+                   
+                </Route>
+                <Route path='taskDetail' element={<TaskDetail/>}>
+                  <Route path=':id' element={<TaskDetail/>}></Route>
+                  
+
+                </Route>
+                <Route path='taskType' element={<TaskType/>}>
+                  <Route path=':id' element={<TaskType/>}></Route>
+                </Route>
+
                 <Route path='*' element={<Navigate to='/'/>}></Route>
             </Route>
             <Route path='admin' element={<DefaultTemplate/>}>
