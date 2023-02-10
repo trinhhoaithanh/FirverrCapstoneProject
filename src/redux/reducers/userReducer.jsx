@@ -33,11 +33,14 @@ export const loginApi = (userLogin)=>{
     return async dispatch =>{
         const result = await http.post('/api/auth/signin',userLogin);
         const action =loginAction(result.data.content);
+        console.log(result);
         dispatch(action);
         saveStoreJson(USER_LOGIN,result.data.content)
-        saveStore(ACCESS_TOKEN,result.data.content.accessToken)
-
-         history.push('/profileUser');
+        saveStore(ACCESS_TOKEN,result.data.content.token)
+        const role = result.data.content.user.role
+        if(role === 'ADMIN')
+            history.push('/admin/nguoi_dung')
+        else history.push('/profileUser');
     }
 }
 export const registerApi = (userRegister)=>{

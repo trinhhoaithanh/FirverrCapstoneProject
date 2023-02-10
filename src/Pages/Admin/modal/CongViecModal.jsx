@@ -1,9 +1,9 @@
 import React from 'react'
 import { Modal } from 'antd'
-import NguoiDungForm from '../form/NguoiDungForm';
+import CongViecForm from '../form/CongViecForm';
 
 
-function NguoiDungModal(props) {
+function CongViecModal(props) {
     const { isModalOpen, onOk, onCancel, form, modeForm} = props
 
     return (
@@ -17,10 +17,10 @@ function NguoiDungModal(props) {
                 destroyOnClose={true}
                 onCancel={onCancel}
             >
-                <NguoiDungForm form={form} mode={modeForm} />
+                <CongViecForm form={form} mode={modeForm} />
             </Modal>
         </div>
     )
 }
 
-export default NguoiDungModal
+export default CongViecModal

@@ -1,8 +1,29 @@
 @import "../../Pages/User/UserHome/UserHome.scss";
 @import "../../Components/HeaderHome/HeaderHome.scss";
 @import "../../Components/Footer/Footer.scss";
+
 @import "../../Components/TaskCard/TaskCard.scss";
 @import "../../Pages/User/TaskList/TaskList.scss";
 @import "../../Pages/User/TaskType/TaskType.scss";
 @import "../../Pages/User/UserProfile/UserProfile.scss";
 @import "../../Pages/User/TaskDetail/TaskDetail.scss";
+
+
+.btn-delete{
+
+}
+.overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+  }
+
+
