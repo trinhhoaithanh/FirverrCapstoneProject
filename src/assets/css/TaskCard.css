@@ -1,0 +1,22 @@
+.card {
+  margin-top: 30px;
+  height: 540px;
+}
+.card .card-body .card-title .row .col-7 .row .col-9 .people {
+  color: black;
+}
+.card .card-body .card-title .row .col-7 .row .col-9 .level {
+  color: #B6B8BC;
+}
+.card .card-body .description .card-text {
+  color: black;
+}
+.card .card-body .rate span {
+  color: #FFBB5C;
+}
+.card .card-body .rate span .danh-gia {
+  color: #B6B8BC;
+}
+.card .row .col-6 {
+  color: #8e8f91;
+}/*# sourceMappingURL=TaskCard.css.map */
