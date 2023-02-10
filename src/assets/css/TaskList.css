@@ -1,0 +1,16 @@
+.task-list {
+  position: absolute;
+  top: 60px;
+  left: 100px;
+}
+.task-list .menu-task .container .navbar .container .collapse .navbar-nav .nav-item {
+  margin-left: 15px !important;
+  color: #6f7071;
+  font-weight: 400;
+}
+.task-list .menu-task .container .navbar .container .collapse .navbar-nav .nav-item span {
+  font-size: 15px;
+}
+.task-list .pagination .page {
+  margin-left: 750px;
+}/*# sourceMappingURL=TaskList.css.map */
