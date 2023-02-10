@@ -39,12 +39,12 @@ const UserHome = () => {
       <div className="job-name">
         <span>Popular:</span>
         
-        {arrPopular?.slice(0,4).map((item,index)=>{
+        {arrPopular?.filter((item,index)=>index%2==0).slice(0,4).map((prod)=>{
           return (
           
-              <button key={index} className="popular-btn mx-1" onClick={()=>{
+              <button  className="popular-btn mx-1" onClick={()=>{
                 history.push('/taskList')
-              }}>{item.tenLoaiCongViec}</button>
+              }}>{prod.tenLoaiCongViec}</button>
             
           )
     })}

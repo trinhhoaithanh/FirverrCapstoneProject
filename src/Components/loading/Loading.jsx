@@ -1,5 +1,7 @@
 import React from 'react'
 import '../../assets/css/loading.css'
+// import '../../assets/css/style.css'
+
 
 function Loading(props) {
     const {visible} = props 
