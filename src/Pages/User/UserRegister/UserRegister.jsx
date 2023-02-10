@@ -28,10 +28,10 @@ const UserLogin = () => {
       }
   })
   return (
-    <div style={{ backgroundColor: "#003C15",padding:'30px' }}>
+    <div style={{ backgroundColor: "#003C15",padding:'30px',height:'1000px' }}>
       <div className="card container">
-        <div className="card-body">
-          <div className="row">
+        <div className="card-body row bg-light" >
+          
             <div className="col-6">
               <img className="w-100 rounded" src="./img/loginbg.jpg" alt="" />
             </div>
@@ -133,7 +133,7 @@ const UserLogin = () => {
             </div>
             </form>
             </div>
-          </div>
+          
         </div>
       </div>
     </div>
