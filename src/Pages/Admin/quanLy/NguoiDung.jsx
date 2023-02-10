@@ -211,11 +211,7 @@ export default function NguoiDung() {
                 skill: form.getFieldValue().skill?.split(','),
                 certification: form.getFieldValue().certification?.split(',')
             })
-            console.log({
-                ...form.getFieldValue(), 
-                skill: form.getFieldValue().skill?.split(','),
-                certification: form.getFieldValue().certification?.split(',')
-            });
+            
             setLoading(false)
             openNotification(typeNotification.SUCCESS, 'thêm thành công', 'thêm thành công')
         } catch (error) {
