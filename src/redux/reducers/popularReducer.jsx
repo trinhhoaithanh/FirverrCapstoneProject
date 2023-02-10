@@ -58,7 +58,7 @@ export const getTaskListApi=()=>{
 }
 export const getTaskTypeApi=(id)=>{
   return async (dispatch)=>{
-    const result=await http.get(`/api/cong-viec/lay-chi-tiet-loai-cong-viec/${id}`);
+    const result=await http.get(`/api/cong-viec/lay-chi-tiet-loai-cong-viec/1`);
     const action = getTaskTypeAction(result.data.content);
     dispatch(action);
     console.log(action)
