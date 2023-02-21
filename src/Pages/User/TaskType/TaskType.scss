@@ -60,7 +60,7 @@
         }
     }
     .most-popular{
-        h5{
+        h2{
             font-size: 24px;
             color: #404145;
         }
@@ -69,10 +69,7 @@
             
             .row{
                 height: 50px;
-                .col-3{
-                    
-                        
-                        
+                .col-3{       
                 }
                 .col-7{
                     padding-top: 15px;
@@ -88,10 +85,35 @@
                     }
                 }
             }
+           
+            &:hover{
+                color: #0C3B24;
+            }
         }
+       
     }
     .explore{
-
+        h2{
+            
+        }
+        .list-explore{
+            .explore-item{
+                img{}
+                h6{
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+                ul{
+                   
+                    padding-left: 0 !important;
+                    li{
+                        color: #62646a;
+                        font-size: 18px;
+                        line-height: 26px;
+                    }
+                }
+            }
+        }
     }
     .services{
         text-align: center;

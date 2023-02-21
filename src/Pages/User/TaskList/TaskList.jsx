@@ -5,6 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, message, Space, Switch,Pagination } from 'antd';
 import TaskCard from '../../../Components/TaskCard/TaskCard';
 import { history } from '../../../index.js';
+import { useParams } from 'react-router-dom';
 
 
 const handleMenuClick = (e) => {
@@ -17,10 +18,12 @@ const onChange = (checked) => {
 
 
 
+
 const TaskList = () => {
   const {arrTaskList} = useSelector(state=>state.popularReducer);
   const {arrPopular} = useSelector(state=>state.popularReducer);
   const {arrTaskType} = useSelector(state=>state.popularReducer);
+  const params = useParams();
   const dispatch=useDispatch();
   
   
@@ -39,13 +42,15 @@ const TaskList = () => {
   useEffect(()=>{
     getAllTaskListApi();
   },[])
-  const getAllTaskTypeApi=async()=>{
-    const action = getTaskTypeApi();
-    dispatch(action);
-  }
+  // const getAllTaskTypeApi=async()=>{
+  //   const action = getTaskTypeApi();
+  //   dispatch(action);
+  // }
   useEffect(()=>{
-    getAllTaskTypeApi();
-  },[])
+    // getAllTaskTypeApi();
+    const action = getTaskTypeApi(params.id);
+    dispatch(action);
+  },[params.id])
   const [current, setCurrent] = useState(3);
   const onChangePage = (page) => {
     console.log(page);
@@ -76,7 +81,7 @@ const TaskList = () => {
     <p onClick={(e) => e.preventDefault()}>
       <Space>
         <span onClick={()=>{
-          history.push('/taskType')
+          history.push(`/taskType/${task.id}`)
         }}>{task.tenLoaiCongViec}</span>
         
       </Space>
