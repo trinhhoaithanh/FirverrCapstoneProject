@@ -444,34 +444,34 @@ const TaskDetail = () => {
                           >
                             <h3>${item.congViec.giaTien}</h3>
                           </div>
-                          <p className="my-5">
+                          <p style={{fontSize:'18px'}} className="my-5">
                             Create a simple web application for your business
                           </p>
-                          <p>
-                            <span>
-                              <ClockCircleOutlined />
+                          <h6>
+                            <span >
+                              <ClockCircleOutlined className="me-2"/>
                               30 Days Delivery
                             </span>
-                            <span>
-                              <SyncOutlined />1 Revision
+                            <span className="ms-3">
+                              <SyncOutlined  className="me-2"/>1 Revision
                             </span>
-                          </p>
+                          </h6>
                           <div className="mo-ta-ngan">
-                            <ul>
+                            <ul style={{listStyle:'none', paddingLeft:'0px'}}>
                               <li className="my-2">
-                                <span><CheckOutlined /></span> Design Customization
+                                <span style={{color:'#95979d',fontSize:'18px'}}><CheckOutlined style={{color:'#1CC072'}}/></span> Design Customization
                               </li>
                               <li className="my-2">
-                                <span><CheckOutlined /></span> Content Upload
+                                <span style={{color:'#95979d',fontSize:'18px'}}><CheckOutlined  style={{color:'#1CC072'}}/></span> Content Upload
                               </li>
                               <li className="my-2">
-                                <span><CheckOutlined /></span> Responsive Design
+                                <span style={{color:'#95979d',fontSize:'18px'}}><CheckOutlined style={{color:'#1CC072'}}/></span> Responsive Design
                               </li>
                               <li className="my-2">
-                                <span><CheckOutlined /></span> Include Source Code
+                                <span style={{color:'#95979d',fontSize:'18px'}}><CheckOutlined style={{color:'#1CC072'}}/></span> Include Source Code
                               </li>
                               <li className="my-2">
-                                <span><CheckOutlined /></span> 1 Page
+                                <span style={{color:'#95979d',fontSize:'18px'}}><CheckOutlined style={{color:'#1CC072'}}/></span> 1 Page
                               </li>
                             </ul>
                           </div>
@@ -481,7 +481,7 @@ const TaskDetail = () => {
                             </Button>
                           
                           </div>
-                          <p style={{color:'#1CC072'}} className="text-center">Compare Packages</p>
+                          <p style={{color:'#1CC072'}} className="text-center mt-2">Compare Packages</p>
                         </>
                       );
                     })}
