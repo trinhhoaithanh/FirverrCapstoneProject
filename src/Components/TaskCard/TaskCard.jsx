@@ -5,7 +5,7 @@ import { Avatar } from 'antd';
 import { StarFilled ,HeartFilled} from '@ant-design/icons';
 import { history } from '../../index.js';
 const TaskCard = ({task}) => {
-    
+   console.log(task) 
   return (
    
         <NavLink className='card' style={{textDecoration:'none'}} to={`/taskDetail/${task.id}`}>

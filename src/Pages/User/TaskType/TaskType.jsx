@@ -20,7 +20,7 @@ const TaskType = () => {
     const actionAsync = getTaskTypeApi(params.id)
     dispatch(actionAsync);
   },[params.id])
-  console.log(arrTaskType);
+  console.log('arrTaskType',arrTaskType);
   const items=[]
   return (
     <div className='task-type'>
@@ -42,7 +42,7 @@ const TaskType = () => {
     <p onClick={(e) => e.preventDefault()}>
       <Space>
         <span onClick={()=>{
-          history.push('/taskType')
+          history.push(`/taskType/${task.id}`)
         }}>{task.tenLoaiCongViec}</span>
         
       </Space>
@@ -69,7 +69,7 @@ const TaskType = () => {
           </div>
       </div>
       <div className='most-popular my-5'>
-          <h5>Most popular In Graphics & Design</h5>
+          <h2>Most popular In Graphics & Design</h2>
           <Button className='btn-popular h-50'>
           
             <div className='row'>
@@ -148,17 +148,35 @@ const TaskType = () => {
           
           
       </div>
-      <div className='explore'>
-          <h3>Explore Graphics & Design</h3>
-          <div className='list-explore row'>
-            {arrTaskType?.map((type,index)=>{
-              return <div className='explore-item col-3' key={index}>
-              <img src={type.dsNhomChiTietLoai.hinhAnh} alt="..." />
-              <h6>{type.dsNhomChiTietLoai.tenNhom}</h6>
-            </div>
-            })}
-            
+      <div className='explore mb-5'>
+        {arrTaskType.map((type,index)=>{
+          return <div key={index}>
+              <h2 className='mb-5'>Explore {type.tenLoaiCongViec}</h2>
+              <div className='list-explore row' >
+              {type.dsNhomChiTietLoai.map((item,index1)=>{
+                return (
+                <div className='explore-item col-4' key={index1}>
+                <img className='w-75' src={item.hinhAnh} alt="..." />
+                <h6 className='my-4'>{item.tenNhom}</h6>
+                <ul style={{marginLeft:'0'}}>
+                  {item.dsChiTietLoai.map((list,index)=>{
+                    return (
+                      <li style={{listStyle:'none'}} key={index}>{list?.tenChiTiet}</li>
+                    )
+                    
+                    
+                  })}
+                </ul>
+                </div>
+              
+              )
+              })}
+              </div>
+             
           </div>
+        })}
+          
+         
       </div>
       <div className='services'>
         <h3>Servies Related To Graphics & Design</h3>

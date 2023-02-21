@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import { http } from '../../utils/config';
 
 const initialState = {
-    arrPopular:[],
+    arrPopular:[
+      
+    ],
     arrTaskList:[],
     arrTaskType:[],
     arrJobList:[],
@@ -42,7 +44,7 @@ export default popularReducer.reducer
 
 export const getPopularApi=(congViec)=>{
     return async (dispatch)=>{
-        const result = await http.get(`/api/cong-viec/lay-danh-sach-cong-viec-theo-ten/a`);
+        const result = await http.get(`/api/cong-viec/lay-danh-sach-cong-viec-theo-ten/b`);
         const action = getPopularAction(result.data.content);
         dispatch(action);
         console.log(action)     
@@ -58,7 +60,7 @@ export const getTaskListApi=()=>{
 }
 export const getTaskTypeApi=(id)=>{
   return async (dispatch)=>{
-    const result=await http.get(`/api/cong-viec/lay-chi-tiet-loai-cong-viec/1`);
+    const result=await http.get(`/api/cong-viec/lay-chi-tiet-loai-cong-viec/${id}`);
     const action = getTaskTypeAction(result.data.content);
     dispatch(action);
     console.log(action)

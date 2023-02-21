@@ -94,13 +94,13 @@ const TaskDetail = () => {
                   <span style={{color:'#62646a'}}>
                     <span style={{color:'#ffb33e'}}>Top Rated Seller </span> |
                     <span className="ms-1">
-                      {" "}
+                      
                       <StarFilled style={{color:'#ffb33e'}} />
                       <span style={{color:'#ffb33e'}}>{item.congViec.saoCongViec}</span> 
                       <span className="danh-gia">
                         ({item.congViec.danhGia})
                       </span>
-                    </span>{" "}
+                    </span>
                     | 4 Orders in Queue
                   </span>
                  <hr className="w-25"/>
