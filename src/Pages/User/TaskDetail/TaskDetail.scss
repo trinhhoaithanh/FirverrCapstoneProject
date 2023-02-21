@@ -2,6 +2,7 @@
     position: absolute;
     top: 60px;    
     left: 100px;
+    
     .menu-task{
         .container{
             .navbar{
@@ -41,14 +42,24 @@
             img{}
           }
           .about-gig{
-            h5{}
-            h6{}
-            p{}
+            h5{
+                
+            }
+            h6{
+                span{}
+            }
+            .description{
+                p{
+                    font-size: 40px;
+                }
+            }
+            
             .list-offer{
                 h6{
 
                 }
                 ul{
+                    list-style: none;
                     li{}
                 }
             }
@@ -64,7 +75,9 @@
                 }
             }
             .about-seller{
+                h4{
 
+                }
             }
             .faq{
                 h4{}
