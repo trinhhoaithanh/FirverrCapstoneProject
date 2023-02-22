@@ -31,7 +31,9 @@ root.render(
                 </Route>
                 <Route path='registerUser' element={<UserRegister/>}></Route>
                 <Route path='loginUser' element={<UserLogin/>}></Route>
-                <Route path='profileUser' element={<UserProfile/>}></Route>
+                <Route path='profileUser' element={<UserProfile/>}>
+                  <Route path=':id' element={<UserProfile/>}></Route>
+                </Route>
                 <Route path='taskList' element={<TaskList/>}>
                   <Route path=':id' element={<TaskList/>}></Route>
                 </Route>

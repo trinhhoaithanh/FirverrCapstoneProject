@@ -102,7 +102,7 @@ http.interceptors.response.use((res) => {
 
     if (err.response?.status === 400 || err.response?.status === 404) {
         //Lỗi do tham số => backend trả về 400 hoặc 404 mình sẽ xử lý
-        alert('Tài khoản đã được đăng ký');
+        // alert('Tài khoản đã được đăng ký');
         //chuyển hướng về home
         // history.push('/');
     }
